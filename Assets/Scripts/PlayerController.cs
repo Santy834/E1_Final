@@ -3,37 +3,28 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f;
-    [SerializeField] private float gravity = -9.8f;
+    [SerializeField] private float speed = 5.0f;        //Definimos la velocidad del jugador
+    [SerializeField] private float gravity = -9.81f;    //Definimos la gravedad
 
+    private CharacterController controller;             //Referencia al CharacterController
+    private Vector3 MoveInput;                           //Vector3 para almacenar la entrada de movimiento
+    private Vector3 velocity;                            //Vector3 para almacenar la velocidad del jugador
 
-    private CharacterController controller;
-    private Vector3 moveInput;
-    private Vector3 velocity;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        controller = GetComponent<CharacterController>();      
+            controller = GetComponent<CharacterController>(); //Obtenemos la referencia al CharacterController
     }
 
-    public void OnMove(InputAction.CallbackContext context)
+    public void OnMove(InputAction.CallbackContext context)     //Método para manejar la entrada de movimiento
     {
-        moveInput = context.ReadValue<Vector2>();
-        Debug.Log($"Move Input: {moveInput}");
+        MoveInput = context.ReadValue<Vector2>(); //Leemos la entrada de movimiento
     }
-
-
-    // Update is called once per frame
     void Update()
     {
-        //Añadimos el movimiento
-        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
-        controller.Move(move * speed * Time.deltaTime);
+        Vector3 move = new Vector3(MoveInput.x, 0, MoveInput.y); //Creamos un vector3 con la entrada de movimiento
+        controller.Move(move * speed * Time.deltaTime); //Movemos al jugador
 
-        //Aplicamos la gravedad
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
-
+        velocity.y += gravity * Time.deltaTime; //Aplicamos la gravedad 
+        controller.Move(velocity * Time.deltaTime); //Movemos al jugador con la gravedad
     }
 }
