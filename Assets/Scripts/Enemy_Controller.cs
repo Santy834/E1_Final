@@ -8,35 +8,55 @@ public class E_Controller : MonoBehaviour
     [SerializeField]
     private Transform player;
 
-    [SerializeField]
-    public static int enemy_n;
+
 
     [SerializeField]
     private float spawnRadius = 10f;
 
     [SerializeField]
-    private float minDistance = 3f;
+    private float minDistance = 5f;
+
+    private int round = 0;
+
+    private int totalEnemies = 0;
 
 
     
     void Start()
     {
-        enemy_n = Random.Range(3, 5);
-        SpawnEnemies();
+
+        NuevaRonda();
+        
     }
 
     
     void Update()
     {
-        if (enemy_n <= 0)
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
         {
-            Start();
+            NuevaRonda();
         }
+        Debug.Log(player.position);
     }
 
-    void SpawnEnemies()
+    void NuevaRonda()
     {
-        for (int i = 0; i < enemy_n; i++)
+        round++;
+
+        player.position = new Vector3(0, 1.74f, 0);
+        Debug.Log(player.position + "¡¡¡¡¡¡¡¡¡¡¡¡¡NUEVA RONDA!!!!!!!!!!!");
+        int enemigosExtra = Random.Range(3, 5);
+        totalEnemies += enemigosExtra;
+
+        SpawnEnemies(totalEnemies);
+        Debug.Log($"Ronda{round} - Enemigos: {totalEnemies}");
+
+        
+    }
+
+    void SpawnEnemies(int cantidad)
+    {
+        for (int i = 0; i < cantidad; i++)
         {
             Vector3 spawnPos = GetRandomPosition();
             Instantiate(enemy, spawnPos, Quaternion.identity);
