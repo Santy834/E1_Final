@@ -16,6 +16,7 @@ public class E_Controller : MonoBehaviour
     [SerializeField]
     private float minDistance = 5f;
 
+    [SerializeField]
     private int round = 0;
 
     private int totalEnemies = 0;
@@ -39,21 +40,32 @@ public class E_Controller : MonoBehaviour
         {
             NuevaRonda();
         }
-        Debug.Log(player.position);
+        
+
     }
 
     void NuevaRonda()
     {
         round++;
 
-        nuevaRonda = true;
+        
         player.position = new Vector3(0, 1.74f, 0);
-        nuevaRonda = false;
+        
         Debug.Log(player.position + "¡¡¡¡¡¡¡¡¡¡¡¡¡NUEVA RONDA!!!!!!!!!!!");
-        int enemigosExtra = Random.Range(3, 5);
-        totalEnemies += enemigosExtra;
+        if (round <= 10)
+        {
+            int enemigosExtra = Random.Range(1, 3);
+            totalEnemies += enemigosExtra;
+            SpawnEnemies(totalEnemies);
+        }
+        else if (round >= 10)
+        {
+            int enemigosExtra = Random.Range(3, 5);
+            totalEnemies += enemigosExtra;
+            SpawnEnemies(totalEnemies);
+        }
 
-        SpawnEnemies(totalEnemies);
+        
         Debug.Log($"Ronda{round} - Enemigos: {totalEnemies}");
 
         

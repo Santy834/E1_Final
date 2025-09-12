@@ -21,14 +21,13 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        if (E_Controller.nuevaRonda == false)
-        {
+       
             Vector3 move = new Vector3(MoveInput.x, 0, MoveInput.y); //Creamos un vector3 con la entrada de movimiento
             controller.Move(move * speed * Time.deltaTime); //Movemos al jugador
 
             velocity.y += gravity * Time.deltaTime; //Aplicamos la gravedad 
             controller.Move(velocity * Time.deltaTime); //Movemos al jugador con la gravedad
-        }
+        
         
     }
 }
