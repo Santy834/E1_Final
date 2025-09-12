@@ -22,6 +22,9 @@ public class E_Controller : MonoBehaviour
 
 
     
+    public static bool nuevaRonda = false;  
+
+    
     void Start()
     {
 
@@ -43,7 +46,9 @@ public class E_Controller : MonoBehaviour
     {
         round++;
 
+        nuevaRonda = true;
         player.position = new Vector3(0, 1.74f, 0);
+        nuevaRonda = false;
         Debug.Log(player.position + "¡¡¡¡¡¡¡¡¡¡¡¡¡NUEVA RONDA!!!!!!!!!!!");
         int enemigosExtra = Random.Range(3, 5);
         totalEnemies += enemigosExtra;
